@@ -5,9 +5,11 @@ import {
     ProfileGridSmall,
     CardReport08,
     Header,
-    Icon
+    Icon,
+    StackedBarChart,
+    Text
 } from "@components";
-import { BaseStyle, useTheme } from "@config";
+import { BaseColor, BaseStyle, useTheme } from "@config";
 import { FHotNews, FNews, FRecentTransactions } from "@data";
 import { useNavigation } from "@react-navigation/native";
 import React from "react";
@@ -17,11 +19,23 @@ import Categories from "./Categories";
 import HeaderCard from "./HeaderCard";
 import HeaderHome from "./HeaderHome";
 import TitleList from "./TitleList";
+import styles from "./styles";
 
 const Dashboard3 = () => {
     const { t } = useTranslation();
     const { colors } = useTheme();
     const navigation = useNavigation();
+
+    
+    const data = {
+        labels: ["January", "Febuary"],
+        legend: [t("income"), t("expense")],
+        data: [
+            [500, 300],
+            [300, 200],
+        ],
+        barColors: [BaseColor.pinkLightColor, BaseColor.accentColor],
+    };
 
     const goToScreen = (name) => name && navigation.navigate(name);
 
@@ -31,7 +45,7 @@ const Dashboard3 = () => {
             edges={["right", "top", "left"]}
         >
             <Header
-                title={t("report")}
+                title={t("Portfolio")}
                 renderLeft={() => {
                     return (
                         <Icon
@@ -60,12 +74,12 @@ const Dashboard3 = () => {
                         isPrimary
                         disabled
                     />
-                    <TitleList
+                    {/*<TitleList
                         title={t("recent_transactions")}
                         textMore={t("view_all")}
                         onPress={() => goToScreen("FChooseFriend")}
-                    />
-                    <View style={{ flexDirection: "row", marginBottom: 10 }}>
+                    />*/}
+                    {/*<View style={{ flexDirection: "row", marginBottom: 10 }}>
                         {FRecentTransactions.map((item, index) => (
                             <View
                                 key={index}
@@ -82,13 +96,13 @@ const Dashboard3 = () => {
                                 />
                             </View>
                         ))}
-                    </View>
+                    </View>*/}
                     <CardReport08
                         style={{ marginBottom: 20 }}
                         percent={50}
                         title="Current Goal"
                         subTitle="Accumulate $29,000"
-                        description="Proin eget tortor risus. Donec sollicitudin molestie malesuada"
+                        description="This is Dashboard3"
                         onPress={() => navigation.navigate("FCryptol02")}
                     />
                     {/* <Categories style={{ marginVertical: 0 }} /> */}
@@ -118,6 +132,26 @@ const Dashboard3 = () => {
                         />
                     ))}
                 </ScrollView> */}
+                <ScrollView
+                contentContainerStyle={styles.container}
+                showsHorizontalScrollIndicator={false}
+                showsVerticalScrollIndicator={false}
+                >
+                <View
+                    style={{
+                        flexDirection: "row",
+                        paddingTop: 20,
+                        paddingBottom: 10,
+                    }}
+                >
+                    <Icon name="chevron-left" size={12} />
+                    <Text body2 style={{ flex: 1, textAlign: "center" }}>
+                        2021 June
+                    </Text>
+                    <Icon name="chevron-right" size={12} />
+                </View>
+                <StackedBarChart data={data} />
+                </ScrollView>
                 <View style={{ paddingHorizontal: 20 }}>
                     {FNews.map((item, index) => (
                         <CardReport07
