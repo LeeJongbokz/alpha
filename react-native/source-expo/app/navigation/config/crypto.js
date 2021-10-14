@@ -15,10 +15,10 @@ export const CryptoTabScreens = {
             tabBarIcon: ({ color }) => tabBarIcon({ color, name: "home" }),
         },
     },
-    CMarket: {
-        component: FCryptol01,
+    CPortfolio: {
+        component: Dashboard3,
         options: {
-            title: "market",
+            title: "Portfolio",
             tabBarIcon: ({ color }) => tabBarIcon({ color, name: "chart-bar" }),
         },
     },
@@ -52,7 +52,7 @@ export default {
     Dashboard3: {
         component: Dashboard3,
         options: {
-            title: "report",
+            title: "Portfolio",
         },
     },
     FCryptol02: {
