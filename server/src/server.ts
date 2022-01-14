@@ -1,13 +1,12 @@
 import express from "express";
 
-import cookieParser from 'cookie-parser';
-import bodyParser from 'body-parser';
+import "./utils/db.ts";
+
 import morgan from 'morgan';
-import path from 'path';
 import routes from './routes';
 import dotenv from "dotenv";
 
-import {initializeUpbit} from './upbit';
+const webSocket = require('./socket');
 
 const app = express();
 
@@ -17,19 +16,15 @@ const PORT = 3000;
 
 app.use(morgan('dev'));
 
-app.use(bodyParser.json());
+app.use(express.json({limit: '50mb'}));
+app.use(express.urlencoded({limit: '50mb', extended: true, parameterLimit: 50000}));
 
 app.use('/', routes);
 
-
 const handleListening = () => {
-    console.log('Listening to localhost:/3000');
+    console.log('Listening to localhost:3000');
 }
 
-const runServer = async() => {
+const server = app.listen(PORT, handleListening);
 
-    await initializeUpbit()
-    app.listen(PORT, handleListening);
-}
-
-runServer()
+webSocket(server);
