@@ -22,8 +22,7 @@
       "outDir":"dist/",
       "baseUrl":"src/",
       "listFiles":false,
-      "skipLibCheck": true,
-      "esModuleInterop": true
+      "skipLibCheck": true
     },
     "include": [
       "src/**/*"
